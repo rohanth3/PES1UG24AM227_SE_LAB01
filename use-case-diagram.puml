@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+actor "Trial Candidate" as Candidate
+actor "Clinical Researcher" as Researcher
+
+rectangle "Clinical Trial Subject Recruitment Engine" {
+  usecase "Register Recruitment\nProfile" as UC1
+  usecase "Submit Pre-Screening\nSurvey" as UC2
+  usecase "Evaluate Eligibility" as UC3
+  usecase "View Eligibility\nStatus" as UC4
+  usecase "View Failed\nCriteria" as UC5
+  usecase "Track Informed Consent\nMilestones" as UC6
+  usecase "Record Visit\nCompliance" as UC7
+  usecase "Review Recruitment\nRecords" as UC8
+}
+
+Candidate -- UC1
+Candidate -- UC2
+Candidate -- UC4
+
+Researcher -- UC4
+Researcher -- UC6
+Researcher -- UC7
+Researcher -- UC8
+
+UC2 .> UC3 : <<include>>
+UC8 .> UC4 : <<include>>
+UC5 .> UC4 : <<extend>>\n[Eligibility = Ineligible]
+
+@enduml
