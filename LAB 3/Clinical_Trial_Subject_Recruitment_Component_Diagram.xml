@@ -1,0 +1,142 @@
+<mxfile host="Electron" modified="2023-10-25T12:00:00.000Z" agent="Mozilla/5.0" version="21.2.8" type="device">
+  <diagram id="clinical_trial_diagram_final" name="Component Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Titles -->
+        <mxCell id="title1" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Clinical Trial Subject Recruitment Engine&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;i&gt;Layered Architecture — UML Component Diagram&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="275" y="20" width="350" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Actors -->
+        <mxCell id="actor1" value="Trial Candidate" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="195" y="90" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="actor2" value="Clinical Researcher" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="675" y="90" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 1: Presentation -->
+        <mxCell id="layer1" value="&lt;b&gt;PRESENTATION LAYER&lt;/b&gt;" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;dashed=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="820" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="comp1" value="«component»&lt;br&gt;&lt;b&gt;Candidate Portal&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer1">
+          <mxGeometry x="70" y="30" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="comp2" value="«component»&lt;br&gt;&lt;b&gt;Researcher Portal&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer1">
+          <mxGeometry x="550" y="30" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 2: Domain -->
+        <mxCell id="layer2" value="&lt;b&gt;APPLICATION / DOMAIN LAYER&lt;/b&gt;" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;dashed=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="370" width="820" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="comp3" value="«component»&lt;br&gt;&lt;b&gt;Eligibility Evaluation Engine&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer2">
+          <mxGeometry x="40" y="45" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="comp4" value="«component»&lt;br&gt;&lt;b&gt;Consent &amp; Milestone Manager&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer2">
+          <mxGeometry x="300" y="45" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="comp5" value="«component»&lt;br&gt;&lt;b&gt;Visit Compliance Manager&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer2">
+          <mxGeometry x="560" y="45" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Layer 3: Data -->
+        <mxCell id="layer3" value="&lt;b&gt;DATA / SECURITY LAYER&lt;/b&gt;" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;dashed=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="580" width="820" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="comp6" value="«component»&lt;br&gt;&lt;b&gt;Trial Data Repository&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer3">
+          <mxGeometry x="200" y="40" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="comp7" value="«component»&lt;br&gt;&lt;b&gt;Security &amp; Audit Service&lt;/b&gt;" style="shape=component;align=center;spacingLeft=10;html=1;whiteSpace=wrap;" vertex="1" parent="layer3">
+          <mxGeometry x="480" y="40" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Solid Actor Associations -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;" edge="1" parent="1" source="actor1" target="comp1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;" edge="1" parent="1" source="actor2" target="comp2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- ASSEMBY CONNECTORS (SOCKET -> BALL) -->
+        <!-- ============================== -->
+
+        <!-- 1. Candidate Portal (Socket) -> Eligibility (Ball) -->
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="comp1" target="comp3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label3" value="Screening Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge3">
+          <mxGeometry x="0.2" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 2. Candidate Portal (Socket) -> Consent Manager (Ball) -->
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.75;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="comp1" target="comp4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label4" value="Consent &amp; Milestones" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge4">
+          <mxGeometry x="-0.1" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 3. Researcher Portal (Socket) -> Visit Compliance (Ball) -->
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="comp2" target="comp5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label5" value="Compliance Review" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge5">
+          <mxGeometry x="-0.1" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 4. Eligibility Engine (Socket) -> Trial Data Repo (Ball) -->
+        <mxCell id="edge6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.5;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="comp3" target="comp6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label6" value="Criteria Queries" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge6">
+          <mxGeometry x="-0.1" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 5. Consent Manager (Socket) -> Trial Data Repo (Ball) -->
+        <mxCell id="edge7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.25;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="comp4" target="comp6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label7" value="Consent Persistence" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge7">
+          <mxGeometry x="-0.1" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 6. Consent Manager (Socket) -> Security & Audit (Ball) -->
+        <mxCell id="edge8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.75;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="comp4" target="comp7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label8" value="Audit Events" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge8">
+          <mxGeometry x="0" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 7. Visit Compliance (Socket) -> Security & Audit (Ball) -->
+        <mxCell id="edge9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=halfCircle;startFill=0;startSize=14;endArrow=oval;endFill=0;endSize=12;exitX=0.5;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="comp5" target="comp7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label9" value="Authorization Check" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="edge9">
+          <mxGeometry x="-0.1" y="0" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
