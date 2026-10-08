@@ -84,5 +84,45 @@ class TestGameEngine(unittest.TestCase):
         self.assertEqual(self.engine.score, initial_score + 1)
         self.assertFalse(self.engine.game_over)
 
+    def test_restart_resets_state(self):
+        # Set a dirty state
+        self.engine.game_over = True
+        self.engine.score = 50
+        self.engine.snake.body = [(1, 1), (1, 2)]
+        self.engine.snake.direction_queue = [(0, -1)]
+        self.engine.food.x = 1
+        
+        # Call restart
+        self.engine.restart_game(10)
+        
+        # Verify fresh state
+        self.assertFalse(self.engine.game_over)
+        self.assertEqual(self.engine.score, 0)
+        self.assertEqual(len(self.engine.snake.body), 3)
+        self.assertEqual(self.engine.snake.body[0], (self.engine.grid_width // 2, self.engine.grid_height // 2))
+        self.assertEqual(self.engine.snake.direction_queue, [])
+        self.assertEqual(self.engine.moves_per_second, 10)
+        self.assertEqual(self.engine._frame_counter, 0)
+
+    def test_difficulty_selection_keys(self):
+        self.engine.game_over = True
+        
+        # Test Easy
+        self.engine.handle_keydown(pygame.K_1)
+        self.assertEqual(self.engine.moves_per_second, 5)
+        self.assertFalse(self.engine.game_over)
+        
+        # Test Medium
+        self.engine.game_over = True
+        self.engine.handle_keydown(pygame.K_2)
+        self.assertEqual(self.engine.moves_per_second, 10)
+        self.assertFalse(self.engine.game_over)
+        
+        # Test Hard
+        self.engine.game_over = True
+        self.engine.handle_keydown(pygame.K_3)
+        self.assertEqual(self.engine.moves_per_second, 15)
+        self.assertFalse(self.engine.game_over)
+
 if __name__ == '__main__':
     unittest.main()

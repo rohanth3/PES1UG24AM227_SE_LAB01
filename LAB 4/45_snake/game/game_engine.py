@@ -30,6 +30,17 @@ class GameEngine:
         self._game_over_logged = False
 
     def handle_keydown(self, key):
+        if self.game_over:
+            if key == pygame.K_1:
+                self.restart_game(moves_per_second=5)  # Easy
+            elif key == pygame.K_2:
+                self.restart_game(moves_per_second=10) # Medium
+            elif key == pygame.K_3:
+                self.restart_game(moves_per_second=15) # Hard
+            elif key == pygame.K_q:
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
+            return
+
         # Direction changes are applied immediately on key press.
         if key in (pygame.K_UP, pygame.K_w):
             self.snake.set_direction(0, -1)
@@ -39,6 +50,15 @@ class GameEngine:
             self.snake.set_direction(-1, 0)
         elif key in (pygame.K_RIGHT, pygame.K_d):
             self.snake.set_direction(1, 0)
+
+    def restart_game(self, moves_per_second):
+        self.moves_per_second = moves_per_second
+        self.snake = Snake(self.grid_width // 2, self.grid_height // 2, self.cell_size)
+        self.food = Food(self.grid_width, self.grid_height, self.cell_size)
+        self.score = 0
+        self._frame_counter = 0
+        self.game_over = False
+        self._game_over_logged = False
 
     def handle_input(self):
         # Reserved for continuously-held-key input (not used for a
@@ -85,12 +105,17 @@ class GameEngine:
         if self.game_over:
             # Draw GAME OVER screen
             game_over_text = self.game_over_font.render("GAME OVER", True, RED)
-            text_rect = game_over_text.get_rect(center=(self.width // 2, self.height // 2 - 20))
+            text_rect = game_over_text.get_rect(center=(self.width // 2, self.height // 2 - 40))
             screen.blit(game_over_text, text_rect)
             
             final_score_text = self.font.render(f"Final Score: {self.score}", True, WHITE)
-            score_rect = final_score_text.get_rect(center=(self.width // 2, self.height // 2 + 30))
+            score_rect = final_score_text.get_rect(center=(self.width // 2, self.height // 2 + 10))
             screen.blit(final_score_text, score_rect)
+            
+            prompt_font = pygame.font.SysFont("Arial", 20)
+            instructions_text = prompt_font.render("Press 1: Easy | 2: Medium | 3: Hard | Q: Quit", True, WHITE)
+            instructions_rect = instructions_text.get_rect(center=(self.width // 2, self.height // 2 + 50))
+            screen.blit(instructions_text, instructions_rect)
             
             if not self._game_over_logged:
                 print("Game over! Final score:", self.score)
