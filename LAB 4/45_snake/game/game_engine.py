@@ -1,6 +1,7 @@
 import pygame
 from .snake import Snake
 from .food import Food
+from .audio import Audio
 
 # Game Engine
 
@@ -18,6 +19,8 @@ class GameEngine:
 
         self.snake = Snake(self.grid_width // 2, self.grid_height // 2, self.cell_size)
         self.food = Food(self.grid_width, self.grid_height, self.cell_size)
+        
+        self.audio = Audio()
 
         self.score = 0
         self.font = pygame.font.SysFont("Arial", 30)
@@ -79,15 +82,18 @@ class GameEngine:
 
         if self.snake.collides_with_wall(self.grid_width, self.grid_height):
             self.game_over = True
+            self.audio.play_game_over()
             return
 
         if self.snake.collides_with_self():
             self.game_over = True
+            self.audio.play_game_over()
             return
 
         if self.snake.head_rect().colliderect(self.food.rect()):
             self.snake.grow()
             self.score += 1
+            self.audio.play_eat()
             self.food.respawn(self.snake.body)
 
     def render(self, screen):
