@@ -6,14 +6,23 @@ class Snake:
         # body is a list of (x, y) grid-cell positions, head is body[0]
         self.body = [(x, y), (x - 1, y), (x - 2, y)]
         self.direction = (1, 0)  # moving right
+        self.direction_queue = []
         self.grow_pending = False
 
     def set_direction(self, dx, dy):
-        # NOTE: does not currently guard against reversing directly
-        # into the segment behind the head.
-        self.direction = (dx, dy)
+        # Validate against the last queued direction, or current direction if queue empty
+        last_dir = self.direction_queue[-1] if self.direction_queue else self.direction
+        
+        # Prevent 180-degree turns and redundant inputs
+        if (dx, dy) != (-last_dir[0], -last_dir[1]) and (dx, dy) != last_dir:
+            # Queue up to 2 future moves to prevent spamming
+            if len(self.direction_queue) < 2:
+                self.direction_queue.append((dx, dy))
 
     def move(self):
+        if self.direction_queue:
+            self.direction = self.direction_queue.pop(0)
+
         head_x, head_y = self.body[0]
         dx, dy = self.direction
         new_head = (head_x + dx, head_y + dy)
