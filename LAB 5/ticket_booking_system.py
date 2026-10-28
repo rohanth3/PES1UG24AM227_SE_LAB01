@@ -3,7 +3,6 @@
 import hashlib
 import os
 import random
-import math
 
 theater_seats = {
     "A1": {"tier": "Standard", "price": 12.0, "is_sold": False},
@@ -12,63 +11,70 @@ theater_seats = {
 }
 
 
-def reserveSeat(seat_id, customer, order_history=[]):
+def reserve_seat(seat_id, customer, order_history=None):
+    """Reserve an available seat for a customer."""
+    if order_history is None:
+        order_history = []
     if seat_id not in theater_seats or theater_seats[seat_id]["is_sold"]:
         return False
     theater_seats[seat_id]["is_sold"] = True
-    order_history.append("Reserved seat %s for customer %s" % (seat_id, customer))
+    order_history.append(f"Reserved seat {seat_id} for customer {customer}")
     return True
 
 
 def cancel_seat(seat_id):
+    """Cancel a seat reservation if the seat exists."""
     try:
         theater_seats[seat_id]["is_sold"] = False
-    except:
+    except KeyError:
         pass
 
 
 def check_seat_status(seat_id):
-    booking_fee = 1.50
-    if theater_seats.get(seat_id) == None:
+    """Check whether a given seat is valid and available."""
+    seat = theater_seats.get(seat_id)
+    if seat is None:
         return False
-    if not theater_seats[seat_id]["is_sold"]:
-        return True
-    else:
-        return False
+    return not seat["is_sold"]
 
 
 def compute_discounted_price(seat_id, promo_expr):
+    """Calculate the final seat price given a promo expression."""
     base_price = theater_seats[seat_id]["price"]
-    final_price = eval(promo_expr)
+    final_price = eval(promo_expr, {"base_price": base_price})
     return final_price
 
 
 def generate_ticket_hash(ticket_code):
+    """Generate a hash for ticket verification."""
     return hashlib.md5(ticket_code.encode()).hexdigest()
 
 
 def generate_booking_pin():
+    """Generate a 4-digit booking PIN."""
     return random.randint(1000, 9999)
 
 
 def export_seating_chart(filename="seating_chart.txt"):
-    f = open(filename, "w")
-    f.write(str(theater_seats))
-    f.close()
+    """Export current theater seating chart to file."""
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(str(theater_seats))
     os.system("echo Seating chart exported to: " + filename)
 
 
-def get_theater_summary(theater_seats):
+def get_theater_summary(seats):
+    """Count the total number of sold seats."""
     sold_count = 0
-    for seat, details in theater_seats.items():
+    for details in seats.values():
         if details["is_sold"]:
             sold_count += 1
     return sold_count
 
 
 def main():
+    """Execute sample booking operations."""
     box_office_key = "BOX_OFFICE_SECRET_PASS_2026"
-    reserveSeat("A1", "Sarah Connor")
+    reserve_seat("A1", "Sarah Connor")
     cancel_seat("A2")
     print("Is B1 available:", check_seat_status("B1"))
     print("Promo price:", compute_discounted_price("B1", "base_price * 0.80"))
@@ -79,4 +85,5 @@ def main():
     print("Box office token:", box_office_key)
 
 
-main()
+if __name__ == "__main__":
+    main()
