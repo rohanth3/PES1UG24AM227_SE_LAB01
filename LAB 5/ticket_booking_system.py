@@ -22,7 +22,7 @@ _SAFE_OPERATORS = {
 
 
 def _evaluate_promo_node(node, variables):
-    """Safely evaluate an AST arithmetic node without executing arbitrary code."""
+    """Safely evaluate an AST node without executing arbitrary code."""
     if isinstance(node, ast.Expression):
         return _evaluate_promo_node(node.body, variables)
     if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
